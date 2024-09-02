@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS GenreMusician(
 CREATE TABLE IF NOT EXISTS Albums(
 	album_id SERIAL PRIMARY KEY,
 	name VARCHAR(60) NOT NULL,
-	year integer NOT NULL,
-	musician_name VARCHAR(40) NOT NULL
+	year integer NOT NULL
 );
 
 create table if not exists MusicianAlbum(
