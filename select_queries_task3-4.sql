@@ -31,3 +31,19 @@ join musicianalbum m on m.album_id = a.album_id
 join musicians m2 on m2.musician_id = m.musician_id
 where m2.name = 'Taylor Swift'
 group by c.name;
+
+-- Задание 4
+-- Исполнитель или исполнители, написавшие самый короткий по продолжительности трек,
+--  теоретически таких треков может быть несколько.
+select m.name, min(t.duration) from musicians m
+join musicianalbum m2 on m.musician_id = m2.musician_id
+join albums a on a.album_id = m2.album_id
+join tracks t on t.album_id = a.album_id
+where t.duration = (select min(duration) from tracks)
+group by m.name;
+
+-- Названия альбомов, содержащих наименьшее количество треков.
+select a.name, count(t.track_id) from albums a
+join tracks t on a.album_id = t.album_id
+group by a.name
+having count(a.name) = (select min(track_count) from (select count(name) as track_count from tracks group by album_id) as subquery);
